@@ -6,8 +6,11 @@ import StudentList from "./components/student/StudentList.jsx";
 import StudentForm from "./components/form/StudentForm.jsx";
 import {StudentProvider} from "./context/StudentContext.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import StudentModal from "./components/modal/StudentModal.jsx";
+import {useState} from "react";
 
 function App() {
+    const [openModal, setOpenModal] = useState(false);
     const router = createBrowserRouter([
         {
             element: <NavBar/>,
@@ -22,6 +25,13 @@ function App() {
     return (
         <StudentProvider>
             <RouterProvider router={router}/>
+            {openModal &&
+                <StudentModal onClose={() => setOpenModal(false)}>
+                    <h2>Contenido del modal</h2>
+                    <p>este es el contenido del modal</p>
+                </StudentModal>
+            }
+            <button onClick={() => setOpenModal(true)}>Abrir modal</button>
         </StudentProvider>
     )
 }
