@@ -17,6 +17,12 @@
       "firstname": "Ana",
       "lastname": "Merino",
       "age": "19"
+    },
+    {
+      "id": "ea29",
+      "firstname": "juanito",
+      "lastname": "valderrama",
+      "age": "10"
     }
   ]
 }
