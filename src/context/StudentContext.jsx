@@ -4,15 +4,26 @@ const StudentContext = createContext();
 
 const StudentProvider = ({children}) => {
     const [students, setStudents] = useState([]);
+    const [hobbies, setHobbies] = useState([]);
 
     const getStudents = async () => {
         try {
             const response = await fetch('http://localhost:3000/students');
-            if (!response.ok) throw new Error("Error al obtener estudiantes");
             const data = await response.json();
             setStudents(data);
         } catch (error) {
             console.error("Error en getStudents:", error);
+            return {ok: false, error: "Error al descargar todos los estudiantes"};
+        }
+    };
+    const getHobbies = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/hobbies');
+            const data = await response.json();
+            setHobbies(data);
+        } catch (error) {
+            console.error("Error en getHobbies:", error);
+            return {ok: false, error: "Error al descargar todos los hobbies de los estudiantes"};
         }
     };
 
@@ -24,7 +35,7 @@ const StudentProvider = ({children}) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(student)
-            }); // Asegúrate de devolver la respuesta
+            });
         } catch (error) {
             console.error('Error en postStudent:', error);
             return {ok: false, message: 'Error de red'}; // Manejo de error
@@ -44,7 +55,7 @@ const StudentProvider = ({children}) => {
     };
 
     return (
-        <StudentContext.Provider value={{students, getStudents, postStudent, deleteStudent}}>
+        <StudentContext.Provider value={{students,hobbies, getStudents, getHobbies, postStudent, deleteStudent}}>
             {children}
         </StudentContext.Provider>
     );

@@ -3,10 +3,11 @@ import {StudentContext} from "../../context/StudentContext.jsx";
 import StudentCard from "./StudentCard.jsx";
 
 const StudentList = () => {
-    const {students, getStudents, deleteStudent} = useContext(StudentContext);
+    const {students, hobbies, getStudents, getHobbies, deleteStudent} = useContext(StudentContext);
 
     useEffect(() => {
         getStudents();
+        getHobbies();
     }, []);
 
     return (
@@ -15,6 +16,7 @@ const StudentList = () => {
             <tr>
                 <th>Nombre</th>
                 <th>Apellidos</th>
+                <th>Aficiones</th>
                 <th>Edad</th>
                 <th>Acciones</th>
             </tr>
@@ -22,7 +24,7 @@ const StudentList = () => {
             <tbody>
             {students.length > 0 ? (
                 students.map(student => (
-                    <StudentCard key={student.id} student={student} onDelete={deleteStudent}/>
+                    <StudentCard key={student.id} student={student} hobbies={hobbies} onDelete={deleteStudent}/>
                 ))
             ) : (
                 <tr>
